@@ -3,7 +3,7 @@ import React from 'react';
 
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-const localRestaurants = [
+export const localRestaurants = [
     {
         name: "Beachside Bar",
         image_url: "https://media-cdn.tripadvisor.com/media/photo-s/11/45/b4/61/beachside-restaurant.jpg",
@@ -14,7 +14,7 @@ const localRestaurants = [
     },
     {
         name: "Bistro",
-        image_url: "https://media-cdn.tripadvisor.com/media/photo-s/11/45/b4/61/beachside-restaurant.jpg",
+        image_url: "https://media.timeout.com/images/105760922/1372/772/image.jpg",
         categories: ["Cafe", "Bar"],
         price: "$$",
         reviews: 1244,
@@ -30,10 +30,10 @@ const localRestaurants = [
     },
 ]
 
-export default function RestaurantItem() {
+export default function RestaurantItems(props) {
   return (
     <TouchableOpacity activeOpacity={1} style={{marginBottom: 30}}>
-        {localRestaurants.map((restaurant, index) => (
+        {props.RestaurantData.map((restaurant, index) => (
             <View key={index} style={{marginTop: 10, padding: 15, backgroundColor: "white",}}>
             <RestaurantImage image={restaurant.image_url}/>
             <RestaurantInfo name={restaurant.name} rating={restaurant.rating}/>
