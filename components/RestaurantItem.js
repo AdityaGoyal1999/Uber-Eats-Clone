@@ -3,22 +3,51 @@ import React from 'react';
 
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
+const localRestaurants = [
+    {
+        name: "Beachside Bar",
+        image_url: "https://media-cdn.tripadvisor.com/media/photo-s/11/45/b4/61/beachside-restaurant.jpg",
+        categories: ["Cafe", "Bar"],
+        price: "$$",
+        reviews: 1244,
+        rating: 4.5,
+    },
+    {
+        name: "Bistro",
+        image_url: "https://media-cdn.tripadvisor.com/media/photo-s/11/45/b4/61/beachside-restaurant.jpg",
+        categories: ["Cafe", "Bar"],
+        price: "$$",
+        reviews: 1244,
+        rating: 4.5,
+    },
+    {
+        name: "Bistro",
+        image_url: "https://media-cdn.tripadvisor.com/media/photo-s/11/45/b4/61/beachside-restaurant.jpg",
+        categories: ["Cafe", "Bar"],
+        price: "$$",
+        reviews: 1244,
+        rating: 4.5,
+    },
+]
 
 export default function RestaurantItem() {
   return (
     <TouchableOpacity activeOpacity={1} style={{marginBottom: 30}}>
-        <View style={{marginTop: 10, padding: 15, backgroundColor: "white",}}>
-        <RestaurantImage />
-        <RestaurantInfo />
+        {localRestaurants.map((restaurant, index) => (
+            <View key={index} style={{marginTop: 10, padding: 15, backgroundColor: "white",}}>
+            <RestaurantImage image={restaurant.image_url}/>
+            <RestaurantInfo name={restaurant.name} rating={restaurant.rating}/>
         </View>
+        ))}
+        
     </TouchableOpacity>
   );
 }
 
-const RestaurantImage = () => (
+const RestaurantImage = (props) => (
     <>
         <Image 
-            source={{uri: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"}}
+            source={{uri: props.image}}
             style={{
                 width: '100%',
                 height: 180,
@@ -31,7 +60,7 @@ const RestaurantImage = () => (
     </>
 );
 
-const RestaurantInfo = () => (
+const RestaurantInfo = (props) => (
     <View style={{
         flexDirection: "row",
         justifyContent: "space-between",
@@ -39,7 +68,7 @@ const RestaurantInfo = () => (
         marginTop: 10,
     }}>
         <View>
-            <Text style={{fontSize: 15, fontWeight: "bold",}}>Farmhouse Western Cuisine</Text>
+            <Text style={{fontSize: 15, fontWeight: "bold",}}>{props.name}</Text>
 
             <Text style={{fontSize: 13,color: "gray",}}>30-45 min</Text>
 
@@ -53,7 +82,7 @@ const RestaurantInfo = () => (
                 justifyContent: "center",
                 borderRadius: 15,
             }}>
-            <Text>4.5</Text>
+            <Text>{props.rating}</Text>
         </View>
     </View>
 );
