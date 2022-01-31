@@ -5,7 +5,7 @@ import SearchBar from '../components/SearchBar';
 import Categories from '../components/Categories';
 // import { ScrollView } from 'react-native-web';
 import RestaurantItems, { localRestaurants } from '../components/RestaurantItems';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 
 const YELP_API_KEY = "Uro3nAsCbRTCXcXs2IJAifgY2WMW7nFP2NJRY07DeYlH9bvDzpploF5pgqFsywf0DCFhGvIjm8ff0w1dpdWE-5PJ0I3lGUsXvPVOXH2q40EiEBNPniJgsMgol_j0YXYx";
@@ -13,9 +13,11 @@ const YELP_API_KEY = "Uro3nAsCbRTCXcXs2IJAifgY2WMW7nFP2NJRY07DeYlH9bvDzpploF5pgq
 export default function Home() {
 
   const [restaurantData, setRestaurantData] = React.useState(localRestaurants);
+  const [city, setCity] = useState("San Francisco");
+  const [activeTab, setActiveTab] = useState("Delivery");
 
   const getRestaurantsFromYelp = () => {
-    const yelpUrl = 'https://api.yelp.com/v3/businesses/search?term=restaurant&location=Toronto';
+    const yelpUrl = `https://api.yelp.com/v3/businesses/search?term=restaurant&location=${city}`;
 
   const apiOptions = {
     headers: {
@@ -25,23 +27,26 @@ export default function Home() {
 
     return fetch(yelpUrl, apiOptions)
             .then((res) => res.json())
-            .then((json) => setRestaurantData(json.businesses));
+            .then((json) => setRestaurantData(json.businesses.filter((business) => business.transactions.includes(activeTab.toLowerCase())
+            )
+            )
+          );
   };
 
   useEffect(() => {
     getRestaurantsFromYelp()
-  }, []);
+  }, [city, activeTab]);
 
   return (
     <SafeAreaView style={{ backgroundColor: "#eee", flex: 1 }}>
         <View style={{ backgroundColor: "white", padding: 15 }}>
-            <HeaderTabs />
-            <SearchBar />
+            <HeaderTabs activeTab={activeTab} setActiveTab={setActiveTab}/>
+            <SearchBar cityHandler={setCity} />
         </View>
         <ScrollView showsVerticalScrollIndicator={false}>
           <Categories />
 
-          <RestaurantItems RestaurantData={restaurantData} />
+          <RestaurantItems RestaurantData={restaurantData}/>
           
         </ScrollView>
     </SafeAreaView>
