@@ -6,6 +6,8 @@ import Categories from '../components/Categories';
 // import { ScrollView } from 'react-native-web';
 import RestaurantItems, { localRestaurants } from '../components/RestaurantItems';
 import { useEffect, useState } from 'react';
+// import { Divider } from 'react-native-elements';
+import BottomTabs from '../components/BottomTabs';
 
 
 const YELP_API_KEY = "Uro3nAsCbRTCXcXs2IJAifgY2WMW7nFP2NJRY07DeYlH9bvDzpploF5pgqFsywf0DCFhGvIjm8ff0w1dpdWE-5PJ0I3lGUsXvPVOXH2q40EiEBNPniJgsMgol_j0YXYx";
@@ -49,6 +51,8 @@ export default function Home() {
           <RestaurantItems RestaurantData={restaurantData}/>
           
         </ScrollView>
+        {/* <Divider width={1} /> */}
+        <BottomTabs />
     </SafeAreaView>
   );
 }
